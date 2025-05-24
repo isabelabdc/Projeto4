@@ -32,6 +32,14 @@ typedef struct {
     int totalTransacoes;
 } Usuario;
 
+//estrutura das moedas:
+typedef struct{
+    char nome[50];
+    float cotacao;
+    float taxaCompra;
+    float taxaVenda;
+} Criptomoeda;
+
 //estrutura das cotacoes:
 typedef struct {
     float cotacaoBitcoin;
