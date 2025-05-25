@@ -1,13 +1,10 @@
 # Projeto4
 Projeto 4 -- Desenvolvimento de Algoritmos 
 
-GRUPO I: 
-Isabela Bonoto de Castro - RA: 24.224.008-3; 
-
-Gustavo Runge Passarelli - RA: 52.224.004-3; 
-
+GRUPO I:  Isabela Bonoto de Castro - RA: 24.224.008-3;  Gustavo Runge Passarelli - RA: 52.224.004-3; 
 
 OBJETIVO:
+
 O objetivo deste projeto é desenvolver um sistema de exchange de criptomoedas, dividido em dois programas: um para o investidor e outro para o administrador.
 
 *O programa do investidor permite realizar cadastro, login, consultar saldo e extrato, além de efetuar operações como depósito, saque, compra e venda de criptomoedas (incluindo moedas personalizadas, criadas por administradores).
@@ -16,7 +13,10 @@ O objetivo deste projeto é desenvolver um sistema de exchange de criptomoedas, 
 
 Todos os dados são armazenados em arquivos binários, garantindo a persistência das informações.
 
+
 Arquivos:
+
+
 -"usuarios.dat" contém as informações dos investidores;
 
 -"criptomoedas.dat" contém as informações das criptomoedas personalizadas (Bitcoin, Ethereum e Ripple são as criptomoedas fixas que não podem ser excluídas ou alteradas pelos administradores, então não estão no arquivo);
@@ -37,6 +37,7 @@ Ao iniciar, o investidor pode fazer cadastro ou login com CPF e senha. Após o l
 *Programa do Administrador:
 O administrador faz login com CPF e senha já predefinidos. Após o login, ele pode cadastrar ou excluir investidores e criptomoedas, consultar saldo e extrato de qualquer investidor informando o CPF, além de atualizar as cotações das criptomoedas personalizadas. As operações são feitas digitando os dados solicitados. Os dados dos novos usuários e criptomoedas cadastrados pelo administrador são salvos automaticamente em seus respectivos arquivos binários ao final de cada operação.
 
+
 -CPF para login do administrador: 12345678900 ;
 
 
@@ -52,9 +53,7 @@ Para compilar e executar o código no Windows, foi feito o download do MinGW-w64
 -Para compilar:
 Compile os arquivos "investidor.c" e "funcoesi.c" juntos, utilizando o comando:
 
-
-"gcc investidor.c funcoesi.c -o inv"
-
+"gcc investidor.c funcoesi.c -o inv"  ;
 
 Esse comando vai gerar o arquivo executavel "inv.exe". 
 
@@ -69,9 +68,7 @@ Digite "inv.exe" no terminal para iniciar o programa para investidores;
 -Para compilar:
 Compile os arquivos "adm.c" e "funcoesa.c" juntos, utilizando o comando:
 
-
-"gcc adm.c funcoesa.c -o adm"
-
+"gcc adm.c funcoesa.c -o adm"  ;
 
 Esse comando vai gerar o arquivo executavel "adm.exe". 
 
