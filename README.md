@@ -50,7 +50,6 @@ Para compilar e executar o código no Windows, foi feito o download do MinGW-w64
 
 *Programa do Invesidor:
 
--Para compilar:
 Compile os arquivos "investidor.c" e "funcoesi.c" juntos, utilizando o comando:
 
 "gcc investidor.c funcoesi.c -o inv"  ;
@@ -58,14 +57,13 @@ Compile os arquivos "investidor.c" e "funcoesi.c" juntos, utilizando o comando:
 Esse comando vai gerar o arquivo executavel "inv.exe". 
 
 
--Para executar:
+
 Digite "inv.exe" no terminal para iniciar o programa para investidores;
 
 
 
 *Programa do Administrador:
 
--Para compilar:
 Compile os arquivos "adm.c" e "funcoesa.c" juntos, utilizando o comando:
 
 "gcc adm.c funcoesa.c -o adm"  ;
@@ -73,7 +71,6 @@ Compile os arquivos "adm.c" e "funcoesa.c" juntos, utilizando o comando:
 Esse comando vai gerar o arquivo executavel "adm.exe". 
 
 
--Para executar:
 
 Digite "adm.exe" no terminal para iniciar o programa para administradores;
 
