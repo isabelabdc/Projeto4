@@ -12,7 +12,7 @@ O programa do investidor permite realizar cadastro, login, consultar saldo e ext
 
 O programa do administrador possibilita cadastrar e excluir investidores e criptomoedas, atualizar cotações das criptomoedas criadas e consultar saldo e extrato de qualquer investidor pelo CPF.
 
-Todos os dados são armazenados em arquivos binários, garantindo persistência e segurança das informações.
+Todos os dados são armazenados em arquivos binários, garantindo persistência das informações.
 
 
 FORMA DE USO:
@@ -21,10 +21,13 @@ FORMA DE USO:
 Ao iniciar, o investidor pode fazer cadastro ou login com CPF e senha. Após o login, ele acessa um menu com as opções de consultar saldo e extrato, depositar, sacar, comprar e vender criptomoedas. As operações são feitas digitando os dados solicitados, como valores e confirmação de senha. Ao sair, todas as informações são salvas em arquivos para que estejam disponíveis na próxima execução do programa.
 
 *Programa do Administrador:
-O administrador faz login com CPF e senha ja predefinidos. Após o login, ele pode cadastrar ou excluir investidores e criptomoedas, consultar saldo e extrato de qualquer investidor informando o CPF, além de atualizar as cotações das criptomoedas personalizadas. As operações são feitas digitando os dados solicitados. Os dados dos usuários e criptomoedas cadastradas pelo administrador são salvos automaticamente em arquivos binários ao final de cada operação.
+O administrador faz login com CPF e senha já predefinidos. Após o login, ele pode cadastrar ou excluir investidores e criptomoedas, consultar saldo e extrato de qualquer investidor informando o CPF, além de atualizar as cotações das criptomoedas personalizadas. As operações são feitas digitando os dados solicitados. Os dados dos usuários e criptomoedas cadastradas pelo administrador são salvos automaticamente em arquivos binários ao final de cada operação.
 
 -Cpf para login do administrador: 12345678900
+
+
 -Senha para login do administrador: admin123
+
 
 FORMA DE COMPILAÇÃO E EXECUÇÃO: 
 
