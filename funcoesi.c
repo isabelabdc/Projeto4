@@ -108,17 +108,18 @@ int cadastrarUsuario(Usuario usuarios[], int *total) {
             return -1;
         }
     }
-    
-    printf("Digite seu primeiro nome: ");
-    scanf(" %49s", novo.nome);
 
     printf("Digite sua senha: ");
     scanf(" %19s", novo.senha);
+
+    printf("Digite seu primeiro nome: ");
+    scanf(" %49s", novo.nome);
 
     novo.reais = 0.0;
     novo.bitcoin = 0.0;
     novo.ethereum = 0.0;
     novo.ripple = 0.0;
+    novo.totalOutras = 0;
     novo.totalTransacoes = 0;
 
     usuarios[*total] = novo;
@@ -194,19 +195,47 @@ void sacar(Usuario *usuario) {
 //funcao de comprar criptomoedas
 void comprar(Usuario *usuario, Cotacoes cotacoes) {
     int opcao;
-    float valor, taxa = 0, quantidade = 0;
+    float valor, taxa = 0, quantidade = 0, cotacaoOutra=0;
     char senha[SENHA_TAM];
     char moeda[10];
+    int encontrada = 0;
+    char nomeMoeda[50];
 
     printf("1. Bitcoin (%.2f)\n", cotacoes.cotacaoBitcoin);
     printf("2. Ethereum (%.2f)\n", cotacoes.cotacaoEthereum);
     printf("3. Ripple (%.2f)\n", cotacoes.cotacaoRipple);
+    printf("4. Outra \n");
     printf("Digite o numero da moeda que deseja comprar: ");
     scanf("%d", &opcao);
 
+    if(opcao==4){
+        FILE *moedas = fopen("criptomoedas.dat", "rb");
+        if (!moedas) {
+            printf("Erro ao abrir arquivo de criptomoedas.\n");
+            return;
+        }
+        printf("Nome da criptomoeda que deseja comprar: ");
+        scanf(" %[^\n]", nomeMoeda);
+
+        Criptomoeda moedaLida;
+        while (fread(&moedaLida, sizeof(Criptomoeda), 1, moedas)) {
+            if (strcmp(moedaLida.nome, nomeMoeda) == 0) {
+                encontrada = 1;
+                printf("Cotacao atual: %.2f\nTaxa de compra: %.2f%%\n", moedaLida.cotacao, moedaLida.taxaCompra);
+                taxa=moedaLida.taxaCompra/ 100.0f;
+                cotacaoOutra=moedaLida.cotacao;
+                strcpy(moeda, moedaLida.nome);
+            }
+        }
+        fclose(moedas);
+        if (!encontrada) {
+            printf("Criptomoeda '%s' nao encontrada.\n", nomeMoeda);
+            return;
+        }
+    }
+
     printf("Digite o valor em reais para a compra: ");
     scanf("%f", &valor);
-
     if (valor <= 0 || valor > usuario->reais) {
         printf("Valor invalido ou saldo insuficiente.\n");
         return;
@@ -235,6 +264,20 @@ void comprar(Usuario *usuario, Cotacoes cotacoes) {
             quantidade = (valor * (1 - taxa)) / cotacoes.cotacaoRipple;
             strcpy(moeda, "XRP");
             usuario->ripple += quantidade;
+    } else if(opcao==4){
+            quantidade = (valor * (1-taxa))/ cotacaoOutra;
+             encontrada = 0;
+            for (int i = 0; i < usuario->totalOutras; i++) {
+                if (strcmp(usuario->outras[i].nome, moeda) == 0) {
+                    usuario->outras[i].quantidade += quantidade;
+                    encontrada = 1;
+                }
+            }
+            if (!encontrada && usuario->totalOutras < 50) {
+                strcpy(usuario->outras[usuario->totalOutras].nome, moeda);
+                usuario->outras[usuario->totalOutras].quantidade = quantidade;
+                usuario->totalOutras++;
+            }
     } else{
             printf("Opção inválida.\n");
             return;
@@ -263,10 +306,14 @@ void vender(Usuario *usuario, Cotacoes cotacoes) {
     char moeda[10];
     float *saldoMoeda = NULL;
     float cotacao = 0;
+    int encontrada = 0;
+    char nomeMoeda[50];
+    int indiceOutra = -1;
 
     printf("1. Bitcoin (%.2f)\n", cotacoes.cotacaoBitcoin);
     printf("2. Ethereum (%.2f)\n", cotacoes.cotacaoEthereum);
     printf("3. Ripple (%.2f)\n", cotacoes.cotacaoRipple);
+    printf("4. Outra \n");
     printf("Digite o numero da moeda que deseja vender: ");
     scanf("%d", &opcao);
 
@@ -285,7 +332,47 @@ void vender(Usuario *usuario, Cotacoes cotacoes) {
             saldoMoeda = &usuario->ripple;
             cotacao = cotacoes.cotacaoRipple;
             strcpy(moeda, "XRP");
-        } else{
+        } else if (opcao==4){
+            FILE *moedas = fopen("criptomoedas.dat", "rb");
+            if (!moedas) {
+                printf("Erro ao abrir arquivo de criptomoedas.\n");
+                return;
+            }
+            printf("Nome da criptomoeda que deseja vender: ");
+            scanf(" %[^\n]", nomeMoeda);
+
+            Criptomoeda moedaDigitada;
+            while (fread(&moedaDigitada, sizeof(Criptomoeda), 1, moedas)) {
+                if (strcmp(moedaDigitada.nome, nomeMoeda) == 0) {
+                    encontrada = 1;
+                    printf("Cotacao atual: %.2f\nTaxa de Venda: %.2f%%\n", moedaDigitada.cotacao, moedaDigitada.taxaVenda);
+                    taxa=moedaDigitada.taxaVenda / 100.0f;
+                    cotacao=moedaDigitada.cotacao;
+                    strcpy(moeda, moedaDigitada.nome);
+                    break;
+            }
+        }
+        fclose(moedas);
+        if (!encontrada) {
+            printf("Criptomoeda '%s' nao encontrada.\n", nomeMoeda);
+            return;
+        }
+
+        //verifica se o usuario possui a criptomoeda:
+        encontrada = 0;
+        for (int i = 0; i < usuario->totalOutras; i++) {
+            if (strcmp(usuario->outras[i].nome, nomeMoeda) == 0) {
+                saldoMoeda = &usuario->outras[i].quantidade;
+                indiceOutra = i;
+                encontrada = 1;
+            }
+        }
+        if (!encontrada) {
+            printf("Voce nao possui essa criptomoeda para vender.\n");
+            return;
+        }
+
+    } else{
             printf("Opcao invalida.\n");
             return;
         }

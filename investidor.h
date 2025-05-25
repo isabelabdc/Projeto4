@@ -19,6 +19,11 @@ typedef struct {
     float taxa;
 } Extrato;
 
+typedef struct {
+    char nome[50];
+    float quantidade;
+} OutraMoeda;
+
 //estrutura do usuario:
 typedef struct {
     char cpf[CPF_TAM];
@@ -28,6 +33,8 @@ typedef struct {
     float bitcoin;
     float ethereum;
     float ripple;
+    OutraMoeda outras[50];
+    int totalOutras;
     Extrato transacoes[TOTAL_TRANSACOES];
     int totalTransacoes;
 } Usuario;
@@ -40,7 +47,7 @@ typedef struct{
     float taxaVenda;
 } Criptomoeda;
 
-//estrutura das cotacoes:
+//estrutura das cotacoes(moedas iniciais):
 typedef struct {
     float cotacaoBitcoin;
     float cotacaoEthereum;

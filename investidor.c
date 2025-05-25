@@ -64,6 +64,9 @@ int main() {
     printf("Bitcoin: %.6f BTC\n", usuarios[logado].bitcoin);
     printf("Ethereum: %.6f ETH\n", usuarios[logado].ethereum);
     printf("Ripple: %.6f XRP\n", usuarios[logado].ripple);
+    for (int i = 0; i < usuarios[logado].totalOutras; i++) {
+        printf("%-10s: %.4f\n", usuarios[logado].outras[i].nome, usuarios[logado].outras[i].quantidade);
+    }
     } else if(opcao==2){
         printf("\n--- EXTRATO ---\n");
         for (int i = 0; i < usuarios[logado].totalTransacoes; i++) {
